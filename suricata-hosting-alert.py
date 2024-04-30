@@ -2,7 +2,7 @@
 
 import requests
 
-def generate_suricata_rules_mining(url):
+def generate_suricata_rules_mining(url, rule_id_start):
     # Download the file content from the GitHub URL
     response = requests.get(url)
     if response.status_code != 200:
@@ -14,7 +14,7 @@ def generate_suricata_rules_mining(url):
     
     # Generate Suricata rules
     rules = []
-    rule_id = 1000000
+    rule_id = rule_id_start
     for tld in tlds:
         if tld:
             rule = f"alert dns any any -> any any (msg:\"[Coin Mining] DNS lookup for .{tld}\"; dns.query; content:\".{tld}\"; nocase; sid:{rule_id}; rev:1;)"
